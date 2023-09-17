@@ -12,7 +12,7 @@ public class DiscordBot {
         String token = dotenv.get("DISCORD_BOT_TOKEN");
         JDA jdaBuilder =  JDABuilder.createDefault(token)
                 .setActivity(Activity.listening("your name"))
-                .addEventListeners(new Application()).build();
+                .addEventListeners(new Application(),new Botcommand()).build();
     }
 
 }
