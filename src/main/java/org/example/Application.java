@@ -21,10 +21,20 @@ public class Application extends ListenerAdapter {
             List<Member> mentionedMembers = event.getMessage().getMentions().getMembers();
             Message message = event.getMessage();
             String Message = event.getMessage().getContentRaw();
-            List<String> newMessage = arrayToken(Message);
-
+            String[] newMessage = Message.split(" ");
             if (mentionedMembers.size() == 1 && mentionedMembers.get(0).equals(event.getGuild().getSelfMember()) && !event.getAuthor().isBot()) {
-                event.getChannel().sendMessage("Bonjour, je suis le bot !" + newMessage.get(0)).queue();
+                if (newMessage[1].equals("calculatrice")) {
+                    int number1 = Integer.parseInt(newMessage[2]);
+                    int number2 = Integer.parseInt(newMessage[4]);
+                    int result = 0;
+                    if (newMessage[3].equals("+")) {
+                        result = Operation.add(number1, number2);
+                    } else if (newMessage[3].equals("-")) {
+                        result = Operation.sub(number1,number2);
+                    }
+                    event.getChannel().sendMessage(Integer.toString(result)).queue();
+                }
+
             }
 
         }
@@ -36,14 +46,7 @@ public class Application extends ListenerAdapter {
             event.reply("your mob");
         }
     }
-    public  static ArrayList<String> arrayToken(String message){
-        StringTokenizer st = new StringTokenizer(message);
-        List<String> newMessage = new ArrayList<>();
-        while (st.hasMoreTokens()){
-            for (int i = 0; i < newMessage.size();i++) newMessage.set(i, st.nextToken());
-        }
-        return (ArrayList<String>) newMessage;
-    }
-    }
 
 
+
+    }
