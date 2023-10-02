@@ -48,7 +48,6 @@ public class Application extends ListenerAdapter {
                     name.add(users.get(i).getName());
                 }
 
-
             String[] newMessage;
             if (event.getMessage().getMentions().getMembers().contains(event.getGuild().getSelfMember())) {
                 List<Member> mentionedMembers = event.getMessage().getMentions().getMembers();
