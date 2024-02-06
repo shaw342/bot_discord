@@ -77,25 +77,29 @@ public class Application extends ListenerAdapter {
                         embed.setTitle(name.toString());
                         event.getChannel().sendMessage(Integer.toString(result)).setEmbeds(embed.build()).queue();
                         embed.clear();
-                    } else if (newMessage[1].equals("initpower4")) {
-                        Power4.initGrid(Power4.gridArray);
-                        event.getChannel().sendMessage(Power4.printGrid(Power4.gridArray)).queue();
-                    } else if (newMessage[1].equals("power4"))
+                    }
+                    else if (newMessage[1].equals("initpower4"))
                     {
-                     /*event.getChannel().sendMessage(
-                                    "choisissez vôtre couleur BLUE OU RED après le power4 exemple: "
-                                    + event.getGuild().getName()+ " " + newMessage[1] + " red");
+                        String player1 = event.getMember().getUser().getName();
+                        Power4.initGrid(Power4.gridArray);
+                        event.getChannel().sendMessage("Qui veut jour au power4 avec :"+player1
+                                + "\n" +
+                                Power4.printGrid(Power4.gridArray)).queue();
 
-                        final String namePlayer1 = event.getMember().getUser().getName();
-                        final String namePlayer2 = event.getMember().getUser().getName();
-
-                     */
+                    }
+                    else if (newMessage[1].equals("power4"))
+                    {
 
                         int position = Integer.parseInt(newMessage[2]);
                         position_Status player = Power4.inEnum(newMessage[3]);
                         Power4.addPawn(Power4.gridArray, position, player);
-
-                        event.getChannel().sendMessage(Power4.printGrid(Power4.gridArray)).queue();
+                        if(Power4.checkwin(Power4.gridArray,player) == true)
+                        {
+                            event.getChannel().sendMessage(player + " a gagner \n" +Power4.printGrid(Power4.gridArray)).queue();
+                        }
+                        else {
+                            event.getChannel().sendMessage(Power4.printGrid(Power4.gridArray)).queue();
+                        }
                     }
                     else
                     {
